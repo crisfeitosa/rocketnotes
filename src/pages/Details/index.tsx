@@ -1,10 +1,9 @@
-import "./styles.css";
+import {Container} from "./styles";
 
 export function Details() {
   return (
-    <>
-      <h1>Hello World!</h1>
-      <span>Cristiano Feitosa</span>
-    </>
+    <Container>
+      <h1>Hello World</h1>
+    </Container>   
   )
-}
+};
