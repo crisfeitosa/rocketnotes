@@ -1,9 +1,19 @@
-import { Container } from './styles'
+import { Container, Profile } from './styles'
 
 export function Header() {
   return (
     <Container>
+      <Profile>
+        <img
+          src="https://github.com/crisfeitosa.png"
+          alt="Foto do usuário"
+        />
 
+        <div>
+          <span>Bem-vindo</span>
+          <strong>Cristiano Feitosa</strong>
+        </div>
+      </Profile>
     </Container>
   )
 }
