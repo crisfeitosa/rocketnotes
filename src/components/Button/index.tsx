@@ -1,9 +1,18 @@
 import { Container } from './styles'
 
-export function Button() {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  title: string;
+  loading?: boolean;
+}
+
+export function Button({ title, loading = false, ...rest }: ButtonProps) {
   return (
-    <Container type="button">
-      Meu Botão
-    </Container>
+    <Container
+      type="button"
+      disabled={loading}
+      {...rest}
+    >
+      {loading ? 'Carregando...' : title}
+    </Container >
   )
 }
