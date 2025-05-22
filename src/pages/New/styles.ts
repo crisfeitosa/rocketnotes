@@ -10,3 +10,21 @@ export const Container = styled.div`
   "header"
   "content";
 `
+
+export const Form = styled.form`
+  max-width: 34.375rem;
+  margin: 2.375rem auto;
+
+  > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 2.25rem;
+
+    a {
+      font-size: 1.25rem;
+      color: ${({ theme }) => theme.COLORS.GRAY_100}
+    }
+  }
+`
