@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import backgroundimg from '../../assets/background.png'
 
 export const Container = styled.div`
   min-height: 100vh;
@@ -7,13 +8,20 @@ export const Container = styled.div`
   align-items: stretch;
 `
 
-export const Form = styled.form`
-  padding: 0 8.5rem;
+export const FormContainer = styled.div`
+  display: flex;
+  width: 40rem;
+  padding: 2rem;
+`
 
+export const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  max-width: 21rem;
+  margin: 0 auto;
 
   text-align: center;
 
@@ -37,4 +45,10 @@ export const Form = styled.form`
     margin-top: 7.75rem;
     color: ${({ theme }) => theme.COLORS.ORANGE};
   }
+`
+
+export const Background = styled.div`
+  flex: 1;
+  background: url(${backgroundimg}) no-repeat center center;
+  background-size: cover;
 `
