@@ -1,12 +1,12 @@
 import { Container } from './styles'
 
-type TagProps = {
+interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
   title: string
 }
 
-export function Tag({ title }: TagProps) {
+export function Tag({ title, ...rest }: TagProps) {
   return (
-    <Container>
+    <Container {...rest}>
       {title}
     </Container>
   )
