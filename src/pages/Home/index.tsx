@@ -17,6 +17,21 @@ interface Tag {
 
 export function Home() {
   const [tags, setTags] = useState<Tag[]>([]);
+  const [tagsSelected, setTagsSelected] = useState<string[]>([]);
+
+  function handleTagsSelected(tagName: string) {
+    setTagsSelected(prevState => {
+      if (tagName === "all") {
+        return [];
+      }
+
+      if (prevState.includes(tagName)) {
+        return prevState.filter(tag => tag !== tagName);
+      }
+
+      return [...prevState, tagName];
+    });
+  }
 
   useEffect(() => {
     async function fetchTags() {
@@ -36,11 +51,21 @@ export function Home() {
       <Header />
 
       <Menu>
-        <li><ButtonText title="Todos" isActive /></li>
+        <li>
+          <ButtonText
+            title="Todos"
+            onClick={() => handleTagsSelected("all")}
+            isActive={tagsSelected.length === 0}
+          />
+        </li>
 
         {tags && tags.map(tag => (
           <li key={String(tag.id)}>
-            <ButtonText title={tag.name} /> 
+            <ButtonText
+              onClick={() => handleTagsSelected(tag.name)}
+              title={tag.name}
+              isActive={tagsSelected.includes(tag.name)}
+            /> 
           </li>
         ))}
       </Menu>
