@@ -2,7 +2,7 @@
 import { AxiosError } from "axios";
 import { AuthContext } from "../hooks/useAuth";
 import { api } from "../services/api";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface AuthProviderProps {
   children: React.ReactNode;
@@ -33,12 +33,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       const response = await api.post('/sessions', { email, password });
       const { user, token } = response.data;
 
+      localStorage.setItem('@rocketnotes:user', JSON.stringify(user));
+      localStorage.setItem('@rocketnotes:token', token);
+
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
       setData({ user, token });
-
-      console.log("Response", user, token);
-
     } catch (error) {
       if (error instanceof AxiosError) {
         alert(error.response?.data.message)
@@ -47,6 +47,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
       }
     }
   }
+
+  useEffect(() => {
+    const user = localStorage.getItem('@rocketnotes:user');
+    const token = localStorage.getItem('@rocketnotes:token');
+
+    if (user && token) {
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+      setData({ token, user: JSON.parse(user)});
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ signIn, user: data.user }}>
