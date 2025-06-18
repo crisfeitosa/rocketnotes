@@ -9,7 +9,13 @@ interface SignInData {
 export interface AuthContextData {
   signIn: (data: SignInData) => Promise<void>;
   signOut: () => void;
+  updateProfile: (user: UserUpdate) => Promise<void>;
   user?: User;
+}
+
+export interface UserUpdate extends User {
+  password?: string;
+  old_password?: string;
 }
 
 export const AuthContext = createContext({} as AuthContextData);

@@ -1,6 +1,6 @@
 
 import { AxiosError } from "axios";
-import { AuthContext } from "../hooks/useAuth";
+import { AuthContext, UserUpdate } from "../hooks/useAuth";
 import { api } from "../services/api";
 import { useEffect, useState } from "react";
 
@@ -13,10 +13,9 @@ interface SignInData {
   password: string;
 }
 
-export  interface User {
-  id: string;
-  name: string;
-  email: string;
+export interface User {
+  name?: string;
+  email?: string;
   avatar?: string;
 }
 
@@ -48,6 +47,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function updateProfile(user: UserUpdate) {
+    try {
+      await api.put('/users', user);
+      localStorage.setItem('@rocketnotes:user', JSON.stringify(user));
+
+      setData({ token: data.token, user });
+      alert("Perfil atualizado!");
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        alert(error.response?.data.message)
+      } else {
+        alert("Não foi possível atualizar o perfil.")
+      }
+    }
+  }
+
   function signOut() {
     localStorage.removeItem('@rocketnotes:user');
     localStorage.removeItem('@rocketnotes:token');
@@ -67,7 +82,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ signIn, user: data.user, signOut }}>
+    <AuthContext.Provider value={{ signIn, user: data.user, signOut, updateProfile }}>
       {children}
     </AuthContext.Provider>
   )
