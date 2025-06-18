@@ -1,0 +1,19 @@
+import { useContext, createContext } from "react";
+import { User } from "../providers/auth";
+
+interface SignInData {
+  email: string;
+  password: string;
+}
+
+export interface AuthContextData {
+  signIn: (data: SignInData) => Promise<void>;
+  user?: User;
+}
+
+export const AuthContext = createContext({} as AuthContextData);
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  return context;
+}
