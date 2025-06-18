@@ -13,7 +13,7 @@ export const Container = styled.div<ContainerProps>`
 
   border: ${({ theme, $isnew }) => $isnew ? `1px dashed ${theme.COLORS.GRAY_300}` : "none"};
 
-  margin-bottom: 0.5rem;
+  margin-bottom: 1rem;
   border-radius: 0.625rem;
   padding-right: 1rem;
 
