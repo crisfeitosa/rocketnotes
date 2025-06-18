@@ -15,9 +15,17 @@ interface Tag {
   name: string;
 }
 
+interface Note {
+  id: string;
+  title: string;
+  tags: Tag[];
+}
+
 export function Home() {
+  const [search, setSearch] = useState('');
   const [tags, setTags] = useState<Tag[]>([]);
   const [tagsSelected, setTagsSelected] = useState<string[]>([]);
+  const [notes, setNotes] = useState<Note[]>([]);
 
   function handleTagsSelected(tagName: string) {
     setTagsSelected(prevState => {
@@ -41,6 +49,16 @@ export function Home() {
 
     fetchTags();
   }, []);
+
+  useEffect(() => {
+    async function fetchNotes() {
+      const response = await api.get(`/notes?title=${search}&tags=${tagsSelected}`);
+
+      setNotes(response.data);
+    }
+
+    fetchNotes();
+  }, [tagsSelected, search]);
 
   return (
     <Container>
@@ -71,19 +89,20 @@ export function Home() {
       </Menu>
 
       <Search>
-        <Input placeholder="Pesquisar pelo título" />
+        <Input
+          placeholder="Pesquisar pelo título"
+          onChange={e => setSearch(e.target.value)}
+        />
       </Search>
 
       <Content>
         <Section title="Minhas notas">
-          <Note data={{
-            title: 'React',
-            tags: [
-              { id: '1', name: 'react' },
-              { id: '2', name: 'rocketseat' }
-            ]
-          }}
-          />
+          {notes.map(note => (
+            <Note
+              key={String(note.id)}
+              data={note}
+            />
+          ))}
         </Section>
       </Content>
 
