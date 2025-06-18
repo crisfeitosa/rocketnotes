@@ -31,6 +31,7 @@ export const Profile = styled(Link)`
   > img {
     width: 3.5rem;
     height: 3.5rem;
+    object-fit: cover;
     border-radius: 50%;
   }
 

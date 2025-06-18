@@ -9,7 +9,7 @@ interface SignInData {
 export interface AuthContextData {
   signIn: (data: SignInData) => Promise<void>;
   signOut: () => void;
-  updateProfile: (user: UserUpdate) => Promise<void>;
+  updateProfile: ({ user, avatarFile }: { user: UserUpdate, avatarFile?: File }) => Promise<void>;
   user?: User;
 }
 
