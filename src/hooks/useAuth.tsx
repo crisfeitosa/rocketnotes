@@ -8,6 +8,7 @@ interface SignInData {
 
 export interface AuthContextData {
   signIn: (data: SignInData) => Promise<void>;
+  signOut: () => void;
   user?: User;
 }
 
