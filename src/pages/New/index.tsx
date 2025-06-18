@@ -53,8 +53,13 @@ export function New() {
     if (!title) {
       return alert('Digite o título da nota');
     }
-    if (!description) {
-      return alert('Digite a descrição da nota');
+
+    if(newLink) {
+      return alert('Você esqueceu de adicionar o link: ' + newLink);
+    }
+
+    if (newTag) {
+      return alert('Você esqueceu de adicionar a tag: ' + newTag);
     }
 
     await api.post('/notes', {
