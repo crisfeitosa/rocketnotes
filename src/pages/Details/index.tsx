@@ -35,7 +35,7 @@ export function Details() {
   const [data, setData] = useState<Note | null>(null);
 
   function handleBack() {
-    navigate('/');
+    navigate(-1);
   }
 
   async function handleRemove() {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../services/api';
 import { Input } from '../../components/Input';
@@ -8,6 +8,7 @@ import { Header } from '../../components/Header';
 import { Section } from '../../components/Section';
 import { NoteItem } from '../../components/NoteItem';
 import { Textarea } from '../../components/Textarea';
+import { ButtonText } from '../../components/ButtonText';
 
 import { Container, Form } from './styles';
 
@@ -70,7 +71,7 @@ export function New() {
     });
 
     alert('Nota criada com sucesso!');
-    navigate('/');
+    navigate(-1);
   }
 
   return (
@@ -81,7 +82,10 @@ export function New() {
         <Form>
           <header>
             <h1>Criar nota</h1>
-            <Link to="/">voltar</Link>
+            <ButtonText
+              title="Voltar"
+              onClick={() => navigate(-1)}
+            />
           </header>
 
           <Input
