@@ -29,14 +29,18 @@ export function Profile() {
   }
 
   async function handleUpdate() {
-    const user = {
+    const updated = {
       name,
       email,
       password: passwordNew,
       old_password: passwordOld
     }
 
-    await updateProfile({ user, avatarFile: avatarFile ?? undefined });
+    if (!user) return;
+
+    const userUpdated = { ...user, ...updated };
+
+    await updateProfile({ user: userUpdated, avatarFile: avatarFile ?? undefined });
   }
 
   function handleChangeAvatar(event: React.ChangeEvent<HTMLInputElement>) {
