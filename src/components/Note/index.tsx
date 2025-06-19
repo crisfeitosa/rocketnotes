@@ -1,29 +1,26 @@
 import { Container } from './styles'
 import { Tag } from '../Tag'
 
-export type NoteProps = {
-  data: {
-    title: string;
-    tags: {
-      id: string;
-      name: string;
-    }[];
-  }
+interface Note {
+  id: string;
+  title: string;
+  tags?: { id: string; name: string; }[];
 }
 
-export function Note({ data, ...rest }: NoteProps) {
-  return (
-    <Container {...rest}>
-      <h1>{data.title}</h1>
+export interface NoteProps {
+  data: Note;
+  onClick: () => void;
+}
 
-      {
-        data.tags &&
-        <footer>
-          {
-            data.tags.map(tag => <Tag key={tag.id} title={tag.name} />)
-          }
-        </footer>
-      }
+export function Note({ data, onClick }: NoteProps) {
+  return (
+    <Container type="button" onClick={onClick}>
+      <h1>{data.title}</h1>
+      <footer>
+        {data.tags && data.tags.map(tag => (
+          <Tag key={tag.id} title={tag.name} />
+        ))}
+      </footer>
     </Container>
   )
 }

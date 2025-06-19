@@ -1,6 +1,8 @@
 import { FiPlus } from 'react-icons/fi'
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
+import { api } from '../../services/api'
 import { Note } from '../../components/Note'
 import { Input } from '../../components/Input'
 import { Header } from '../../components/Header'
@@ -8,7 +10,6 @@ import { Section } from '../../components/Section'
 import { ButtonText } from '../../components/ButtonText'
 
 import { Container, Brand, Menu, Search, Content, NewNote } from './styles'
-import { api } from '../../services/api'
 
 interface Tag {
   id: string;
@@ -22,6 +23,8 @@ interface Note {
 }
 
 export function Home() {
+  const navigate = useNavigate();
+
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState<Tag[]>([]);
   const [tagsSelected, setTagsSelected] = useState<string[]>([]);
@@ -39,6 +42,10 @@ export function Home() {
 
       return [...prevState, tagName];
     });
+  }
+
+  function handleDetails(id: string) {
+    navigate(`/details/${id}`);
   }
 
   useEffect(() => {
@@ -101,6 +108,7 @@ export function Home() {
             <Note
               key={String(note.id)}
               data={note}
+              onClick={() => handleDetails(note.id)}
             />
           ))}
         </Section>
